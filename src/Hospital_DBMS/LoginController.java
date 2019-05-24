@@ -79,7 +79,8 @@ public class LoginController implements Initializable {
                 decorator.setTitle("Hospital DBMS");
 
                 Scene scene = new Scene(decorator);
-                stage.setMaximized(true);
+                stage.setHeight(750);
+                stage.setWidth(1300);
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
                 stage.show();
