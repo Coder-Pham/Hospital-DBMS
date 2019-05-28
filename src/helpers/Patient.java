@@ -1,4 +1,4 @@
-package helpers;
+package Model;
 
 import javafx.beans.property.SimpleStringProperty;
 

@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Hospital_DBMS.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haydenhuynh.LoginController">
    <children>
       <Pane layoutX="-4.0" prefHeight="242.0" prefWidth="522.0" style="-fx-background-color: #CA5242;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="imageView" fitHeight="145.0" fitWidth="145.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../imgs/hospital.png" />
+                  <Image url="@/imgs/hospital.png" />
                </image>
             </ImageView>
             <JFXTextField fx:id="txtUsername" focusColor="#4d4d4d" labelFloat="true" layoutX="180.0" layoutY="43.0" prefHeight="39.0" prefWidth="293.0" promptText="Username" style="-fx-background-color: #eeeeee; -fx-border-radius: 10;">

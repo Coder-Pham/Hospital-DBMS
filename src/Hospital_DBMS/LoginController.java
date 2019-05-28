@@ -1,4 +1,4 @@
-package Hospital_DBMS;
+package com.haydenhuynh;
 
 
 import com.jfoenix.controls.JFXButton;
@@ -15,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.shape.Rectangle;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -24,21 +23,27 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import helpers.Info;
+import Model.Info;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
 
+    public static Stage secondStage;
+    public static Scene menuScene;
+
     @FXML
     private JFXTextField txtUsername;
+
     @FXML
     private JFXPasswordField txtPassword;
+
     @FXML
     private JFXButton btnLogin;
+
     @FXML
     private ImageView imageView;
+
     @FXML
     private Label error;
 
@@ -53,7 +58,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void loginAction(ActionEvent event) throws IOException {
+    private void loginAction() throws IOException {
         Info.username = txtUsername.getText();
         Info.password = txtPassword.getText();
 
@@ -71,21 +76,32 @@ public class LoginController implements Initializable {
 
         if (Info.connection != null) {
             try {
-                Stage stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("MainView.fxml"));
-                JFXDecorator decorator = new JFXDecorator(stage, root, false, false, true);
-                decorator.setCustomMaximize(false);
-                decorator.setBorder(Border.EMPTY);
-                decorator.setTitle("Hospital DBMS");
 
-                Scene scene = new Scene(decorator);
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+//                JFXDecorator decorator = new JFXDecorator(stage, root, false, false, true);
+//                decorator.setCustomMaximize(false);
+//                decorator.setBorder(Border.EMPTY);
+//                decorator.setTitle("Hospital DBMS");
+
+                Scene scene = new Scene(root, 1300, 750);
                 stage.setHeight(750);
                 stage.setWidth(1300);
-                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setResizable(false);
+                secondStage = stage;
+                menuScene = scene;
+//                stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
                 stage.show();
+
                 //Hide login window
-                btnLogin.getScene().getWindow().hide();
+                Main.firstStage.hide();
+
+                txtUsername.setText("");
+                txtPassword.setText("");
+                btnLogin.setDisableVisualFocus(true);
+                error.setVisible(false);
+
             } catch (IOException e) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
             }
