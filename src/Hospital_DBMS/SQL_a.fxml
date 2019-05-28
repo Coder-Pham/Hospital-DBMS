@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="750" prefWidth="1300" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haydenhuynh.ControllerSQL_a">
+<BorderPane prefHeight="750" prefWidth="1300" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Hospital_DBMS.ControllerSQL_a">
 
     <left>
         <GridPane alignment="top_left" hgap="10" prefWidth="275" vgap="10">

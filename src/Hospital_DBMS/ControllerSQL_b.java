@@ -1,7 +1,7 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
-import Model.Info;
-import Model.PatientSQL_b;
+import helpers.Info;
+import helpers.PatientSQL_b;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -10,7 +10,7 @@
 <?import javafx.scene.control.ScrollPane?>
 
 <?import javafx.scene.control.TextArea?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="com.haydenhuynh.ControllerFunctionThree">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="Hospital_DBMS.ControllerFunctionThree">
 
     <left>
         <GridPane prefWidth="300" alignment="top_left" hgap="10" vgap="10" >

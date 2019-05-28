@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haydenhuynh.ControllerFunctionTwo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Hospital_DBMS.ControllerFunctionTwo">
    <children>
       <JFXToggleButton fx:id="type" layoutX="246.0" layoutY="8.0" mnemonicParsing="false" onAction="#switchScene" prefHeight="58.0" prefWidth="148.0" text="Outpatient" toggleColor="#0d47a1" toggleLineColor="#4862e8" unToggleLineColor="#424242">
          <font>

@@ -1,4 +1,4 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
 import com.jfoenix.controls.JFXDecorator;
 import javafx.application.Application;

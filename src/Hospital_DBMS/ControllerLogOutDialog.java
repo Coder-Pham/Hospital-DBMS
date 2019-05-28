@@ -1,6 +1,6 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
-import Model.Info;
+import helpers.Info;
 
 public class ControllerLogOutDialog {
 

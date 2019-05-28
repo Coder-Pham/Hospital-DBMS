@@ -1,4 +1,4 @@
-package Model;
+package helpers;
 public class PatientSQL_b {
     private String PID;
     private String Patient_Name;

@@ -1,4 +1,4 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,9 +16,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import Model.Info;
-import Model.treatmentReport;
-import Model.examinationReport;
+import helpers.Info;
+import helpers.treatmentReport;
+import helpers.examinationReport;
 import javafx.scene.text.Font;
 import java.sql.*;
 

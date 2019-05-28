@@ -1,9 +1,9 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import Model.Info;
-import Model.PatientFee;
+import helpers.Info;
+import helpers.PatientFee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

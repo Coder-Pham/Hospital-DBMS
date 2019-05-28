@@ -1,4 +1,4 @@
-package Model;
+package helpers;
 
 public class treatmentReport {
 

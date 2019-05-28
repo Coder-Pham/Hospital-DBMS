@@ -1,4 +1,4 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;

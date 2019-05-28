@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.haydenhuynh;
+package Hospital_DBMS;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.fxml.Initializable;
-import Model.Info;
-import Model.SORT_DOCTOR_ITEM;
-import Model.DateValidation;
+import helpers.Info;
+import helpers.SORT_DOCTOR_ITEM;
+import helpers.DateValidation;
 import java.io.IOException;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -56,7 +57,6 @@ public class ControllerSQL_d implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         errorStart.setPrefSize(0, 0);
         errorStart.setVisible(false);
         errorEnd.setPrefSize(0, 0);
@@ -91,7 +91,7 @@ public class ControllerSQL_d implements Initializable {
         
         ObservableList<SORT_DOCTOR_ITEM> list_item = FXCollections.observableArrayList(); 
          
-        TreeItem<SORT_DOCTOR_ITEM> root = new RecursiveTreeItem<SORT_DOCTOR_ITEM>(list_item,RecursiveTreeObject::getChildren);
+        TreeItem<SORT_DOCTOR_ITEM> root = new RecursiveTreeItem<SORT_DOCTOR_ITEM>(list_item, RecursiveTreeObject::getChildren);
         tblSort_Doctor.getColumns().setAll(DOC_ID,DOC_NAME,DOC_PATIENT); 
         tblSort_Doctor.setRoot(root);
         tblSort_Doctor.setShowRoot(false);
@@ -145,8 +145,12 @@ public class ControllerSQL_d implements Initializable {
                     endDate +
                     "','DD-MON-YY'),?,?,?)}";
             CallableStatement cstmt = Info.connection.prepareCall(command);
+
+            @Deprecated
             ArrayDescriptor desc = ArrayDescriptor.createDescriptor("DOCID_ARRAY", Info.connection);
+            @Deprecated
             ArrayDescriptor desc2 = ArrayDescriptor.createDescriptor("DOCNAME_ARRAY", Info.connection);
+            @Deprecated
             ArrayDescriptor desc3 = ArrayDescriptor.createDescriptor("DOCPATIENT_ARRAY", Info.connection);
             
             cstmt.registerOutParameter(1,Types.ARRAY,"MANAGER.DOCID_ARRAY");

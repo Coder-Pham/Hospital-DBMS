@@ -1,8 +1,8 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
 import java.io.IOException;
 import java.sql.*;
-import Model.PatientSQL_a;
+import helpers.PatientSQL_a;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,7 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import Model.Info;
+import helpers.Info;
 
 
 public class ControllerSQL_a {

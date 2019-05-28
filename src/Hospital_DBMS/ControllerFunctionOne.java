@@ -1,8 +1,8 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
-import Model.Info;
-import Model.examinationReport2;
-import Model.treatmentReport2;
+import helpers.Info;
+import helpers.examinationReport2;
+import helpers.treatmentReport2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;

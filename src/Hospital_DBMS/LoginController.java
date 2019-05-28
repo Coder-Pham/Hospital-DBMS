@@ -1,4 +1,4 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
 
 import com.jfoenix.controls.JFXButton;
@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import Model.Info;
+import helpers.Info;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 

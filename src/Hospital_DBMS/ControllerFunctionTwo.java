@@ -1,8 +1,8 @@
-package com.haydenhuynh;
+package Hospital_DBMS;
 
 import com.jfoenix.controls.*;
-import Model.Info;
-import Model.Patient;
+import helpers.Info;
+import helpers.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
