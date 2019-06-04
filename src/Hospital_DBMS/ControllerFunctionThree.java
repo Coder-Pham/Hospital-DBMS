@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ControllerFunctionThree {
 
@@ -22,6 +23,7 @@ public class ControllerFunctionThree {
     private ResultSet docIDset;
     private ResultSet patientList;
     private ObservableList<PatientFunctionThree> patients;
+    private ArrayList<String> patientIDSet;
     private String docQuery = "SELECT EID_Doc FROM DOCTOR WHERE EID_Doc = ";
     private String patientQuery = "SELECT * FROM PATIENT, INPATIENT, TREATMENT WHERE PATIENT.PID = INPATIENT.PID_In AND INPATIENT.PID_In = TREATMENT.PID_In AND TREATMENT.EID_Doc = ";
 
@@ -95,6 +97,8 @@ public class ControllerFunctionThree {
         conn = Info.connection;
 
         patients = FXCollections.observableArrayList();
+
+        patientIDSet = new ArrayList<>();
     }
 
     @FXML
@@ -135,23 +139,46 @@ public class ControllerFunctionThree {
         col15.setCellValueFactory(new PropertyValueFactory<>("treatmentEndDate"));
         col16.setCellValueFactory(new PropertyValueFactory<>("result"));
 
+        patientList.previous();
         while(patientList.next()) {
-            patients.add(new PatientFunctionThree(patientList.getString(1),
-                    patientList.getString(2) + patientList.getString(3),
-                    patientList.getString(4).substring(0, 10),
-                    patientList.getString(5),
-                    patientList.getString(6),
-                    patientList.getString(7),
-                    patientList.getString(9).substring(0, 10),
-                    patientList.getString(10).substring(0, 10),
-                    patientList.getString(11),
-                    patientList.getString(12),
-                    patientList.getString(13),
-                    patientList.getString(15),
-                    patientList.getString(18),
-                    patientList.getString(19).substring(0, 10),
-                    patientList.getString(20).substring(0, 10),
-                    patientList.getString(21)));
+            if (patientIDSet.contains(patientList.getString(1))) {
+                patients.add(new PatientFunctionThree("-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        "-",
+                        patientList.getString(18),
+                        patientList.getString(19).substring(0, 10),
+                        patientList.getString(20).substring(0, 10),
+                        patientList.getString(21)));
+            }
+            else {
+                patientIDSet.add(patientList.getString(1));
+
+                patients.add(new PatientFunctionThree(patientList.getString(1),
+                        patientList.getString(2) + patientList.getString(3),
+                        patientList.getString(4).substring(0, 10),
+                        patientList.getString(5),
+                        patientList.getString(6),
+                        patientList.getString(7),
+                        patientList.getString(9).substring(0, 10),
+                        patientList.getString(10).substring(0, 10),
+                        patientList.getString(11),
+                        patientList.getString(12),
+                        patientList.getString(13),
+                        patientList.getString(15),
+                        patientList.getString(18),
+                        patientList.getString(19).substring(0, 10),
+                        patientList.getString(20).substring(0, 10),
+                        patientList.getString(21)));
+            }
         }
 
         InfoTable.setItems(patients);

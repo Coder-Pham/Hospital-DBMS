@@ -10,10 +10,9 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.fxml.Initializable;
 import helpers.Info;
 import helpers.SORT_DOCTOR_ITEM;
@@ -24,11 +23,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.util.Callback;
 import java.sql.*;
+//@Deprecated
 import oracle.sql.ArrayDescriptor;
 
 /**
@@ -46,7 +47,7 @@ public class ControllerSQL_d implements Initializable {
     @FXML
     private JFXTextField txtEndDate;
     @FXML
-    private JFXButton btnSort;
+    private Button btnSort;
     @FXML
     private Label errorStart;
     @FXML
@@ -57,6 +58,7 @@ public class ControllerSQL_d implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // TODO
         errorStart.setPrefSize(0, 0);
         errorStart.setVisible(false);
         errorEnd.setPrefSize(0, 0);
@@ -91,7 +93,7 @@ public class ControllerSQL_d implements Initializable {
         
         ObservableList<SORT_DOCTOR_ITEM> list_item = FXCollections.observableArrayList(); 
          
-        TreeItem<SORT_DOCTOR_ITEM> root = new RecursiveTreeItem<SORT_DOCTOR_ITEM>(list_item, RecursiveTreeObject::getChildren);
+        TreeItem<SORT_DOCTOR_ITEM> root = new RecursiveTreeItem<SORT_DOCTOR_ITEM>(list_item,RecursiveTreeObject::getChildren);
         tblSort_Doctor.getColumns().setAll(DOC_ID,DOC_NAME,DOC_PATIENT); 
         tblSort_Doctor.setRoot(root);
         tblSort_Doctor.setShowRoot(false);
@@ -145,7 +147,6 @@ public class ControllerSQL_d implements Initializable {
                     endDate +
                     "','DD-MON-YY'),?,?,?)}";
             CallableStatement cstmt = Info.connection.prepareCall(command);
-
             @Deprecated
             ArrayDescriptor desc = ArrayDescriptor.createDescriptor("DOCID_ARRAY", Info.connection);
             @Deprecated

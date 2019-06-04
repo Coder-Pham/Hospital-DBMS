@@ -5,9 +5,12 @@
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -19,10 +22,17 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXToggleButton>
-      <JFXButton fx:id="back" buttonType="RAISED" layoutX="-1.0" mnemonicParsing="false" text="Back" onAction="#onBackButtonPressed">
+      <Button fx:id="back" layoutX="-1.0" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="30.0" prefWidth="50">
          <font>
             <Font size="13.0" />
-         </font></JFXButton>
+         </font>
+
+         <graphic>
+            <ImageView fitHeight="49.0" fitWidth="31.0">
+               <Image url="@/imgs/back.png" />
+            </ImageView>
+         </graphic>
+      </Button>
       <BorderPane layoutX="6.0" layoutY="63.0" prefHeight="98.0" prefWidth="588.0">
          <top>
             <AnchorPane prefHeight="97.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
@@ -97,12 +107,12 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </JFXTextField>
-      <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="876.0" layoutY="225.0" mnemonicParsing="false" onAction="#submit" prefHeight="39.0" prefWidth="145.0" ripplerFill="BLACK" style="-fx-border-radius: 10; -fx-background-color: #0d47a1;" text="Submit" textFill="WHITE">
+      <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="876.0" layoutY="225.0" mnemonicParsing="false" onAction="#submit" prefHeight="39.0" prefWidth="145.0" ripplerFill="BLACK" style="-fx-border-radius: 10; -fx-background-color: #424242;" text="Submit" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <TableView layoutX="25.0" layoutY="275.0" prefHeight="426.0" prefWidth="1225.0" fx:id="table">
+      <TableView fx:id="table" layoutX="25.0" layoutY="275.0" prefHeight="426.0" prefWidth="1225.0">
         <columns>
            <TableColumn fx:id="id" prefWidth="100" text="PID" />
            <TableColumn fx:id="fname" prefWidth="150" text="PFNAME" />

@@ -7,6 +7,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,17 +16,23 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1300.0" style="-fx-background-color: #d87e72;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Hospital_DBMS.ControllerSQL_c">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Hospital_DBMS.ControllerSQL_c">
    <left>
       <GridPane alignment="top_left" hgap="10" prefHeight="352.0" prefWidth="341.0" vgap="10">
 
-         <Button fx:id="backButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #e1e1e1;" text="Go Back" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#onBackButtonPressed">
+         <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="30.0" prefWidth="50.0" style="-fx-background-color: #e1e1e1;" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
             <GridPane.margin>
                <Insets right="-15.0" />
             </GridPane.margin>
+
+            <graphic>
+               <ImageView>
+                  <Image url="@/imgs/back.png" />
+               </ImageView>
+            </graphic>
          </Button>
 
          <HBox alignment="center" GridPane.columnIndex="7" GridPane.rowIndex="17" />
@@ -112,7 +120,7 @@
       </GridPane>
    </left>
    <right>
-      <TableView fx:id="table" prefHeight="610.0" prefWidth="959.0" style="-fx-background-color: #424242;" BorderPane.alignment="CENTER">
+      <TableView fx:id="table" prefHeight="610.0" prefWidth="959.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="methodID" prefWidth="75.0" text="Treatment or Examination ID" />
           <TableColumn fx:id="fee" prefWidth="75.0" text="Fee" />

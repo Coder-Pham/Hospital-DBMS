@@ -196,7 +196,7 @@ public class AddController implements Initializable {
             PreparedStatement update = Info.connection.prepareStatement(addQuery);
             update.setString(1, pidValue);
             update.setString(2, NamePart[0]);
-            update.setString(3, NamePart[2]);
+            update.setString(3, NamePart[1]);
             update.setString(4, PDOB);
             update.setString(5, gender);
             update.setString(6, PPhone);
@@ -204,6 +204,7 @@ public class AddController implements Initializable {
             int result = update.executeUpdate();
             update.close();
         } catch (SQLException e) {
+            System.out.println("PATIENT");
             showAlert();
             return;
         }
@@ -251,7 +252,9 @@ public class AddController implements Initializable {
                 exam.executeUpdate();
                 uses_exam.executeUpdate();
             } catch (SQLException e) {
+                System.out.println("OUTPATIENT");
                 showAlert();
+
                 return;
             }
         }
@@ -302,10 +305,15 @@ public class AddController implements Initializable {
                 uses_treatment.setInt(4, MID);
 
                 inpatient.executeUpdate();
+                System.out.println("INPATIENT");
                 treatment.executeUpdate();
+                System.out.println("TREATMENT");
                 uses_treatment.executeUpdate();
+                System.out.println("USES_TREAT");
             } catch (SQLException e) {
+
                 showAlert();
+
                 return;
             }
 

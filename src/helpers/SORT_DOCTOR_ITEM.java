@@ -5,7 +5,6 @@
  */
 package helpers;
 
-
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,7 +14,7 @@ import javafx.beans.property.StringProperty;
  *
  * @author jayhuynh
  */
-public class SORT_DOCTOR_ITEM extends RecursiveTreeObject<SORT_DOCTOR_ITEM> {
+public class SORT_DOCTOR_ITEM extends RecursiveTreeObject<SORT_DOCTOR_ITEM>{
     private StringProperty DOC_ID;
     private StringProperty DOC_FNAME;
     private StringProperty NO_PATIENT;

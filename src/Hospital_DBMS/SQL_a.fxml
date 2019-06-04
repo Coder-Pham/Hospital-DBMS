@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,9 +16,15 @@
     <left>
         <GridPane alignment="top_left" hgap="10" prefWidth="275" vgap="10">
 
-            <Button fx:id="backButton" text="&lt;" GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#onBackButtonPressed"> </Button>
+            <Button fx:id="backButton" onAction="#onBackButtonPressed" prefHeight="30" prefWidth="50" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <graphic>
+                    <ImageView>
+                        <Image url="@/imgs/back.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
 
-            <Button fx:id="confirmButton" prefHeight="40" prefWidth="200" text="Increase Fee by 10%" GridPane.columnIndex="1" GridPane.rowIndex="10" onAction="#onConfirmButtonPressed"> </Button>
+            <Button fx:id="confirmButton" onAction="#onConfirmButtonPressed" prefHeight="40" prefWidth="156.0" style="-fx-background-color: #424242;" text="Increase Fee by 10%" textFill="#e1e1e1" GridPane.columnIndex="1" GridPane.rowIndex="10"> </Button>
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
@@ -43,10 +51,10 @@
 
             <TableView fx:id="InfoTable" prefHeight="750.0" prefWidth="1025.0">
                 <columns>
-                    <TableColumn fx:id="col1" prefWidth="75" text="Patient ID" />
-                    <TableColumn fx:id="col2" prefWidth="75" text="Full Name" />
-                    <TableColumn fx:id="col3" prefWidth="75" text="Initial Fee" />
-                    <TableColumn fx:id="col4" prefWidth="75" text="Afterward Fee"/>
+                    <TableColumn fx:id="col1" prefWidth="75" text="Patient ID" style="-fx-alignment: CENTER"/>
+                    <TableColumn fx:id="col2" prefWidth="75" text="Full Name" style="-fx-alignment: CENTER"/>
+                    <TableColumn fx:id="col3" prefWidth="75" text="Initial Fee" style="-fx-alignment: CENTER"/>
+                    <TableColumn fx:id="col4" prefWidth="75" text="Afterward Fee" style="-fx-alignment: CENTER"/>
                 </columns>
             <columnResizePolicy>
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -16,13 +16,11 @@ import helpers.Info;
 public class ControllerSQL_a {
 
     private Connection conn;
-    private Statement statement1;
-    private Statement statement2;
-    private ResultSet resultSet1;
-    private ResultSet resultSet2;
+    private Statement statement;
+    private ResultSet resultSet;
+    private double initalFee;
     private ObservableList<PatientSQL_a> patientFees;
-    private String queryFee1 = "SELECT PFee FROM INPATIENT";
-    private String queryFee2 = "UPDATE INPATIENT SET PFee = PFee + PFee * 0.1 WHERE INPATIENT.PAdmissionDate >= TO_DATE('01-SEP-2017', 'DD-MON-YY')";
+    private String queryFee = "UPDATE INPATIENT SET PFee = PFee + PFee * 0.1 WHERE INPATIENT.PAdmissionDate >= TO_DATE('01-SEP-17', 'DD-MON-YY')";
     private String queryJoin = "SELECT PID_In, PFName || ' ' || PLName, PFee FROM PATIENT, INPATIENT WHERE PATIENT.PID = INPATIENT.PID_In AND INPATIENT.PAdmissionDate >= TO_DATE('01-SEP-2017', 'DD-MON-YY')";
 
     @FXML
@@ -58,21 +56,20 @@ public class ControllerSQL_a {
 
         InfoTable.getItems().clear();
 
-        statement1 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        statement2 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-        resultSet1 = statement1.executeQuery(queryFee1);
+        statement.execute(queryFee);
 
-        statement2.execute(queryFee2);
+        resultSet = statement.executeQuery(queryJoin);
 
-        resultSet2 = statement2.executeQuery(queryJoin);
+        while(resultSet.next()) {
 
-        while(resultSet2.next() && resultSet1.next()) {
+            initalFee = resultSet.getDouble(3) * (10.0/11);
 
-            patientFees.add(new PatientSQL_a(resultSet2.getString(1),
-                                            resultSet2.getString(2),
-                                            resultSet1.getString(1),
-                                            resultSet2.getString(3)));
+            patientFees.add(new PatientSQL_a(resultSet.getString(1),
+                                            resultSet.getString(2),
+                                            String.format("%.0f", initalFee),
+                                            resultSet.getString(3)));
         }
 
         col1.setCellValueFactory(new PropertyValueFactory<>("PID_In"));

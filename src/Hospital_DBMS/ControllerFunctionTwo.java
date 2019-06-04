@@ -1,5 +1,11 @@
 package Hospital_DBMS;
 
+/* TODO:
+    - DropList Doctor, Nurse, MID
+    - Dialog box check trùng PID
+    - Tách Full name -> First Last
+ */
+
 import com.jfoenix.controls.*;
 import helpers.Info;
 import helpers.Patient;
@@ -8,10 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -23,10 +26,14 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
 
 public class ControllerFunctionTwo implements Initializable {
     @FXML
-    private JFXButton back;
+    private Button back;
     @FXML
     private JFXToggleButton type;
     @FXML
@@ -104,7 +111,6 @@ public class ControllerFunctionTwo implements Initializable {
                     ALL_PATIENT.getString(3), ALL_PATIENT.getString(4),
                     ALL_PATIENT.getString(5), ALL_PATIENT.getString(6), ALL_PATIENT.getString(7));
             data.add(nxtPatient);
-
         }
 
         id.setCellValueFactory(new PropertyValueFactory<Patient, String>("PID"));
@@ -196,7 +202,7 @@ public class ControllerFunctionTwo implements Initializable {
             PreparedStatement update = Info.connection.prepareStatement(addQuery);
             update.setString(1, pidValue);
             update.setString(2, NamePart[0]);
-            update.setString(3, NamePart[2]);
+            update.setString(3, NamePart[1]);
             update.setString(4, PDOB);
             update.setString(5, gender);
             update.setString(6, PPhone);
@@ -214,16 +220,16 @@ public class ControllerFunctionTwo implements Initializable {
             try {
 //              Get RANDOM ID
                 ResultSet doctor = statement.executeQuery(DOCTOR_rand);
-                ResultSet medication = statement.executeQuery(MID_rand);
                 doctor.next();
-                medication.next();
                 String DOC_ID = doctor.getString(1);
+                ResultSet medication = statement.executeQuery(MID_rand);
+                medication.next();
                 int MID = medication.getInt(1);
 
 //              Get Examinate Date - TODAY
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-                LocalDate today = LocalDate.now();
-                String EXDATE = dtf.format(today);
+                Date date = Calendar.getInstance().getTime();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String EXDATE = dateFormat.format(date);
 
 //              Get form
                 int EXID = Integer.parseInt(eid.getText());
@@ -233,6 +239,7 @@ public class ControllerFunctionTwo implements Initializable {
                 PreparedStatement outpatient = Info.connection.prepareStatement(addOUTPATIENT);
                 outpatient.setString(1, pidValue);
                 outpatient.setString(2, DOC_ID);
+                outpatient.executeUpdate();
 
                 PreparedStatement exam = Info.connection.prepareStatement(addEXAMINATION);
                 exam.setString(1, DOC_ID);
@@ -240,16 +247,15 @@ public class ControllerFunctionTwo implements Initializable {
                 exam.setInt(3, EXID);
                 exam.setString(4, EXDATE);
                 exam.setInt(5, fee);
+                exam.executeUpdate();
 
                 PreparedStatement uses_exam = Info.connection.prepareStatement(addUSES_EXAM);
                 uses_exam.setString(1, DOC_ID);
                 uses_exam.setString(2, pidValue);
                 uses_exam.setInt(3, EXID);
                 uses_exam.setInt(4, MID);
-
-                outpatient.executeUpdate();
-                exam.executeUpdate();
                 uses_exam.executeUpdate();
+
             } catch (SQLException e) {
                 showAlert();
                 return;
@@ -257,25 +263,30 @@ public class ControllerFunctionTwo implements Initializable {
         }
         else {
 //            INPATIENT choose
-            try {
+            try{
                 ResultSet doctor = statement.executeQuery(DOCTOR_rand);
-                ResultSet nurse = statement.executeQuery(NURSE_rand);
-                ResultSet medication = statement.executeQuery(MID_rand);
                 doctor.next();
-                nurse.next();
-                medication.next();
                 String DOC_ID = doctor.getString(1);
+                ResultSet nurse = statement.executeQuery(NURSE_rand);
+                nurse.next();
                 String NURSE_ID = nurse.getString(1);
+                ResultSet medication = statement.executeQuery(MID_rand);
+                medication.next();
                 int MID = medication.getInt(1);
 
+
                 // Admision Date - Today
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-                LocalDate today = LocalDate.now();
-                String admissionDate = dtf.format(today);
+                Date date = Calendar.getInstance().getTime();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String admissionDate = dateFormat.format(date);
 
                 // Discharge Date
-                LocalDate nextday = today.plusDays(30);
-                String dischargeDate = dtf.format(nextday);
+                Calendar c = Calendar.getInstance();
+  		        c.add(Calendar.DATE, 30);
+        	    Date d = c.getTime();
+        	    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		        String dischargeDate = df.format(d);
+
 
                 String PRoom = room.getText();
                 int fee = Integer.parseInt(Tfee.getText());
@@ -289,20 +300,19 @@ public class ControllerFunctionTwo implements Initializable {
                 inpatient.setInt(5, fee);
                 inpatient.setString(6, DOC_ID);
                 inpatient.setString(7, NURSE_ID);
+                inpatient.executeUpdate();
 
                 PreparedStatement treatment = Info.connection.prepareStatement(addTREATMENT);
                 treatment.setString(1, DOC_ID);
                 treatment.setString(2, pidValue);
                 treatment.setInt(3, TRID);
+                treatment.executeUpdate();
 
                 PreparedStatement uses_treatment = Info.connection.prepareStatement(addUSES_TREAT);
                 uses_treatment.setString(1, DOC_ID);
                 uses_treatment.setString(2, pidValue);
                 uses_treatment.setInt(3, TRID);
                 uses_treatment.setInt(4, MID);
-
-                inpatient.executeUpdate();
-                treatment.executeUpdate();
                 uses_treatment.executeUpdate();
             } catch (SQLException e) {
                 showAlert();

@@ -19,12 +19,14 @@ import java.util.ResourceBundle;
 import helpers.Info;
 import helpers.treatmentReport;
 import helpers.examinationReport;
+import helpers.employeeReport;
 import javafx.scene.text.Font;
 import java.sql.*;
 
 public class ControllerFunctionFour implements Initializable {
 
     private boolean init = true;
+    private boolean doc = false;
     private Statement qr = Info.connection.createStatement();    // Query Statement.
     private ResultSet rs;					                    // The record we select.
 
@@ -46,13 +48,16 @@ public class ControllerFunctionFour implements Initializable {
     @FXML
     private TableView<examinationReport> table2;
 
+    @FXML
+    private TableView<employeeReport> table3;
+
     public ControllerFunctionFour() throws SQLException {
     }
 
     public GridPane createInformation(String inPNAME, String inPID, String inPGENDER, String inPDOB, String inPNUMBER, String inPADDRESS, String inPDOC, String inPNURSE){
 
         // Creating labels
-        Label label_PNAME = new Label("Patient's Full Name: ");
+        Label label_PNAME = new Label("Full Name: ");
         label_PNAME.setFont(Font.font("System",20));
 
         // Creating Text Filed
@@ -61,7 +66,7 @@ public class ControllerFunctionFour implements Initializable {
         PNAME.setEditable(false);
         PNAME.setText(inPNAME);
 
-        Label label_PID = new Label("Patient's ID: ");
+        Label label_PID = new Label("ID: ");
         label_PID.setFont(Font.font("System",20));
 
         // Creating Text Filed
@@ -70,7 +75,7 @@ public class ControllerFunctionFour implements Initializable {
         PID.setEditable(false);
         PID.setText(inPID);
 
-        Label label_PGENDER = new Label("Patient's Gender: ");
+        Label label_PGENDER = new Label("Gender: ");
         label_PGENDER .setFont(Font.font("System",20));
 
         // Creating Text Filed
@@ -79,7 +84,7 @@ public class ControllerFunctionFour implements Initializable {
         PGENDER.setEditable(false);
         PGENDER.setText(inPGENDER);
 
-        Label label_PDOB = new Label("Patient's Date Of Birth: ");
+        Label label_PDOB = new Label("Date Of Birth: ");
         label_PDOB.setFont(Font.font("System",20));
 
         // Creating Text Filed
@@ -88,7 +93,7 @@ public class ControllerFunctionFour implements Initializable {
         PDOB.setEditable(false);
         PDOB.setText(inPDOB);
 
-        Label label_PNUMBER = new Label("Patient's Phone Number: ");
+        Label label_PNUMBER = new Label("Phone Number: ");
         label_PNUMBER.setFont(Font.font("System",20));
 
         // Creating Text Filed
@@ -97,7 +102,7 @@ public class ControllerFunctionFour implements Initializable {
         PNUMBER.setEditable(false);
         PNUMBER.setText(inPNUMBER);
 
-        Label label_PADDRESS = new Label("Patient's Address: ");
+        Label label_PADDRESS = new Label("Address: ");
         label_PADDRESS.setFont(Font.font("System",20));
 
         // Creating Text Filed
@@ -106,7 +111,7 @@ public class ControllerFunctionFour implements Initializable {
         PADDRESS.setEditable(false);
         PADDRESS.setText(inPADDRESS);
 
-        Label label_PDOC = new Label("Patient's Doctor's ID: ");
+        Label label_PDOC = new Label("Doctor's ID: ");
         label_PDOC.setFont(Font.font("System",20));
 
         // Creating Text Filed
@@ -115,7 +120,7 @@ public class ControllerFunctionFour implements Initializable {
         PDOC.setEditable(false);
         PDOC.setText(inPDOC);
 
-        Label label_PNURSE = new Label("Patient's Nurse's ID: ");
+        Label label_PNURSE = new Label("Nurse's ID: ");
         label_PNURSE.setFont(Font.font("System", 20));
 
         // Creating Text Filed
@@ -155,6 +160,7 @@ public class ControllerFunctionFour implements Initializable {
         gridPane.setMargin(label_PNUMBER, new Insets(0,0,0,20));
         gridPane.setHalignment(label_PADDRESS, HPos.LEFT);
         gridPane.setMargin(label_PADDRESS, new Insets(0,0,0,20));
+        gridPane.setPadding(new Insets(0,0,150,20));
         gridPane.setColumnSpan(PADDRESS,3);
         gridPane.setHalignment(label_PDOC, HPos.LEFT);
         gridPane.setMargin(label_PDOC, new Insets(0,0,0,20));
@@ -174,12 +180,6 @@ public class ControllerFunctionFour implements Initializable {
         gridPane.add(PNUMBER, 3, 2);
         gridPane.add(label_PADDRESS, 0, 3);
         gridPane.add(PADDRESS, 1, 3);
-        gridPane.add(label_PDOC, 0, 4);
-        gridPane.add(PDOC, 1, 4);
-        if(!inPNURSE.equals("NULL")) {
-            gridPane.add(label_PNURSE, 2, 4);
-            gridPane.add(PNURSE, 3, 4);
-        }
 
         gridPane.setId("Information");
         return gridPane;
@@ -200,6 +200,7 @@ public class ControllerFunctionFour implements Initializable {
                 EID= "";
             }
             this.report.getChildren().add(1,this.createInformation(rs.getString("PFNAME") + " " + rs.getString("PLNAME"), rs.getString("PID"), rs.getString("PGENDER"), rs.getString("PDOB"), rs.getString("PPHONE"), rs.getString("PADDRESS"), EID, "NULL"));
+            this.getEmployeetReport(EID, "NULL");
             this.getReport(PID);
         }
         else{
@@ -221,6 +222,7 @@ public class ControllerFunctionFour implements Initializable {
                     NUR= "";
                 }
                 this.report.getChildren().add(1,this.createInformation(rs.getString("PFNAME") + " " + rs.getString("PLNAME"), rs.getString("PID"), rs.getString("PGENDER"), rs.getString("PDOB"), rs.getString("PPHONE"), rs.getString("PADDRESS"), EID, NUR));
+                this.getEmployeetReport(EID, NUR);
                 this.exportReport(PID);
             }
             else{
@@ -324,6 +326,89 @@ public class ControllerFunctionFour implements Initializable {
         this.table2.setItems(reportExamination(PID));
         this.table2.getColumns().addAll(ID, diag, ad, dis, medname, medeff, fee, medprice, total);
         return table2;
+    }
+
+    public ObservableList<employeeReport> reportEmployee(String EID, String NUR) {
+        ObservableList<employeeReport> employeeReports = FXCollections.observableArrayList();
+        try {
+            rs = qr.executeQuery("SELECT E.EID, EPHONE, EFNAME, ELNAME, EDOB, EGENDER, ESPECIALITY, EADDRESS, ESTARTDATE, DID, DTITLE FROM EMP_PHONE P, (SELECT EID, EFNAME, ELNAME, EDOB, EGENDER, ESPECIALITY, EADDRESS, ESTARTDATE, DID AS SUB_DID FROM EMPLOYEE) E, (SELECT DID, DTITLE, EID AS SUB_EID FROM DEPARTMENT) D WHERE E.SUB_DID = D.DID AND P.EID = E.EID AND E.EID = " + EID);
+
+        } catch (SQLException e) {
+            this.init = true;
+            return null;
+        }
+
+        try {
+            ArrayList<String> storedID = new ArrayList<>();
+
+            employeeReports.add(new employeeReport("DOCTOR", "---", "---", "---", "---", "---", "---", "---", "---", "---"));
+
+            while (rs.next()) {
+
+                boolean _check = false;
+                for (int i = 0; i < storedID.size(); i++) {
+                    if (storedID.get(i).equals(rs.getString("EID"))) {
+                        _check = true;
+                        break;
+                    }
+                }
+                if (!_check) {
+                    employeeReports.add(new employeeReport(rs.getString("EID"), rs.getString("EPHONE"), rs.getString("EFNAME") + " " + rs.getString("ELNAME"), rs.getString("EDOB"),
+                            rs.getString("EGENDER"), rs.getString("ESPECIALITY"), rs.getString("EADDRESS"), rs.getString("ESTARTDATE"),
+                            rs.getString("DID"), rs.getString("DTITLE")));
+
+                    storedID.add(rs.getString("EID"));
+                } else {
+                    employeeReports.add(new employeeReport("", rs.getString("EPHONE"), "", "",
+                            "", "", "", "", "", ""));
+                }
+            }
+
+        } catch (SQLException e) {
+            this.init = true;
+            return null;
+        }
+
+    if(!(NUR.equals("NULL"))){
+        employeeReports.add(new employeeReport("NURSE", "---", "---", "---", "---", "---", "---", "---", "---", "---"));
+
+        try {
+            rs = qr.executeQuery("SELECT E.EID, EPHONE, EFNAME, ELNAME, EDOB, EGENDER, ESPECIALITY, EADDRESS, ESTARTDATE, DID, DTITLE FROM EMP_PHONE P, (SELECT EID, EFNAME, ELNAME, EDOB, EGENDER, ESPECIALITY, EADDRESS, ESTARTDATE, DID AS SUB_DID FROM EMPLOYEE) E, (SELECT DID, DTITLE, EID AS SUB_EID FROM DEPARTMENT) D WHERE E.SUB_DID = D.DID AND P.EID = E.EID AND E.EID = " + NUR);
+
+        } catch (SQLException e) {
+            this.init = true;
+            return null;
+        }
+
+        try {
+            ArrayList<String> storedID = new ArrayList<>();
+
+            while (rs.next()) {
+                boolean checks = false;
+                for (int i = 0; i < storedID.size(); i++) {
+                    if (storedID.get(i).equals(rs.getString("EID"))) {
+                        checks = true;
+                        break;
+                    }
+                }
+                if (!checks) {
+                    employeeReports.add(new employeeReport(rs.getString("EID"), rs.getString("EPHONE"), rs.getString("EFNAME") + " " + rs.getString("ELNAME"), rs.getString("EDOB"),
+                            rs.getString("EGENDER"), rs.getString("ESPECIALITY"), rs.getString("EADDRESS"), rs.getString("ESTARTDATE"),
+                            rs.getString("DID"), rs.getString("DTITLE")));
+                    storedID.add(rs.getString("EID"));
+                } else {
+                    employeeReports.add(new employeeReport("", rs.getString("EPHONE"), "", "",
+                            "", "", "", "", "", ""));
+                }
+            }
+
+        } catch (SQLException e) {
+            this.init = true;
+            return null;
+        }
+    }
+
+        return employeeReports;
     }
 
     public ObservableList<treatmentReport> reportTreatment(String PID){
@@ -442,8 +527,60 @@ public class ControllerFunctionFour implements Initializable {
         this.report.getChildren().add(generateTreatmentTable(PID));
     }
 
-    public void getReport(String PID){
-        this.report.getChildren().add(generateExaminationTable(PID));
+    public void getReport(String EID){
+        this.report.getChildren().add(generateExaminationTable(EID));
+    }
+
+    public TableView<employeeReport> generateEmployeeTable(String EID, String NUR){
+
+        TableColumn<employeeReport, String> ID = new TableColumn<>("Employee's ID");
+        ID.setMinWidth(100);
+        ID.setCellValueFactory(new PropertyValueFactory<>("EID"));
+
+        TableColumn<employeeReport, String> phone = new TableColumn<>("Employee's Phone");
+        phone.setMinWidth(100);
+        phone.setCellValueFactory(new PropertyValueFactory<>("EPHONE"));
+
+        TableColumn<employeeReport, String> name = new TableColumn<>("Employee's Name");
+        name.setMinWidth(100);
+        name.setCellValueFactory(new PropertyValueFactory<>("ENAME"));
+
+        TableColumn<employeeReport, String> dob = new TableColumn<>("Employee's DOB");
+        dob.setMinWidth(100);
+        dob.setCellValueFactory(new PropertyValueFactory<>("EDOB"));
+
+        TableColumn<employeeReport, String> gender = new TableColumn<>("Employee's Gender");
+        gender.setMinWidth(100);
+        gender.setCellValueFactory(new PropertyValueFactory<>("EGENDER"));
+
+        TableColumn<employeeReport, String> spec = new TableColumn<>("Employee's Speciality");
+        spec.setMinWidth(100);
+        spec.setCellValueFactory(new PropertyValueFactory<>("ESPECIALITY"));
+
+        TableColumn<employeeReport, String> addr = new TableColumn<>("Employee's Address");
+        addr.setMinWidth(100);
+        addr.setCellValueFactory(new PropertyValueFactory<>("EADDRESS"));
+
+        TableColumn<employeeReport, String> std = new TableColumn<>("Employee's Start Date");
+        std.setMinWidth(100);
+        std.setCellValueFactory(new PropertyValueFactory<>("ESTARTDATE"));
+
+        TableColumn<employeeReport, String> did = new TableColumn<>("Department's ID");
+        did.setMinWidth(100);
+        did.setCellValueFactory(new PropertyValueFactory<>("DID"));
+
+        TableColumn<employeeReport, String> title = new TableColumn<>("Department's Title");
+        title.setMinWidth(100);
+        title.setCellValueFactory(new PropertyValueFactory<>("DTITLE"));
+
+        this.table3 = new TableView<employeeReport>();
+        this.table3.setItems(reportEmployee(EID,NUR));
+        this.table3.getColumns().addAll(ID, phone, name, dob, gender, spec, addr, std, did, title);
+        return table3;
+    }
+
+    public void getEmployeetReport(String PID, String NUR){
+        this.report.getChildren().add(2, generateEmployeeTable(PID,NUR));
     }
 
     @Override
@@ -455,7 +592,8 @@ public class ControllerFunctionFour implements Initializable {
 
     public void searchAction(Event event) throws SQLException {
         if(!init){
-            this.report.getChildren().remove(3);
+            this.report.getChildren().remove(4);
+            this.report.getChildren().remove(2);
             this.report.getChildren().remove(1);
         }
         else{

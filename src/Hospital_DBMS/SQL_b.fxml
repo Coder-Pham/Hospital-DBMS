@@ -5,12 +5,14 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750" prefWidth="1300" style="-fx-background-color: #d87e72;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Hospital_DBMS.ControllerSQL_b">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750" prefWidth="1300" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Hospital_DBMS.ControllerSQL_b">
     <bottom>
-        <Button alignment="CENTER" onAction="#showTable" prefHeight="37.0" prefWidth="229.0" text="All Patient of Dr. Nguyen Van A" textFill="#282525" BorderPane.alignment="CENTER">
+        <Button alignment="CENTER" onAction="#showTable" prefHeight="37.0" prefWidth="229.0" style="-fx-background-color: #424242;" text="All Patient of Dr. Nguyen Van A" textFill="#e1e1e1" BorderPane.alignment="CENTER">
             <font>
                 <Font size="15.0" />
             </font>
@@ -23,15 +25,21 @@
         </Button>
     </bottom>
     <top>
-        <Button fx:id="backButton" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="28.0" prefWidth="84.0" text="Go Back" BorderPane.alignment="TOP_LEFT" onAction="#onBackButtonPressed">
+        <Button fx:id="backButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="30.0" prefWidth="50.0" BorderPane.alignment="TOP_LEFT">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
+
+            <graphic>
+                <ImageView>
+                    <Image url="@/imgs/back.png" />
+                </ImageView>
+            </graphic>
         </Button>
     </top>
     <center>
         <ScrollPane>
-            <TableView fx:id="InfoTable" prefHeight="673.0" prefWidth="1283.0" style="-fx-background-color: #424242;" BorderPane.alignment="CENTER">
+            <TableView fx:id="InfoTable" prefHeight="644.0" prefWidth="1283.0" BorderPane.alignment="CENTER">
                 <columns>
                     <TableColumn fx:id="col1" prefWidth="75.0" text="PATIENT ID" />
                     <TableColumn fx:id="col2" prefWidth="75.0" text="FULL NAME" />
@@ -45,4 +53,7 @@
             </TableView>
         </ScrollPane>
     </center>
+   <padding>
+      <Insets bottom="32.0" />
+   </padding>
 </BorderPane>
